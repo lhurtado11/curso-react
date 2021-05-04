@@ -5,21 +5,24 @@ class App extends
 React.Component {
   constructor() {
     super();
-    this.state = {
-      title: 'Hola Mundo'
-    };
-
+    this.state = { name: "" };
   }
-  render () {
+  render() {
     return (
-      <h1 onClick = {this.updateText.bind(this)}>{this.state.title}</h1>
+      <div>
+        <input type="text" value={this.state.name} onChange={this.updateName.bind(this)} />
+        <button onClick={this.saluda.bind(this)}>Saluda</button>
+      </div>
     );
   }
 
-  updateText () {
+  updateName(event) {
     this.setState({
-      title: 'Hello World'
+      name: event.target.value
     });
+   }
+  saluda() {
+  alert(`Hola ${this.state.name}!`);
   }
 }
 

@@ -1,28 +1,39 @@
 import React from 'react';
+import axios from 'axios';
 import './App.css';
 
 class App extends
 React.Component {
   constructor() {
     super();
-    this.state = { name: "" };
+
+    this.state = {
+      names: []
+    };
+    axios.get("http://localhost:3001/names")
+         .then(response => {
+            this.setState({
+              names: response.data
+            });
+          })
+         .catch(error => {
+            console.log(error);
+          })
   }
+
+
   render() {
     return (
       <div>
-        <input type="text" value={this.state.name} onChange={this.updateName.bind(this)} />
-        <button onClick={this.saluda.bind(this)}>Saluda</button>
+        <h1>Hola Mundo</h1>
+        <ul>
+          {this.state.names.map(name => 
+            <li key={name}>{name}</li>
+          )}
+        </ul>
       </div>
+      
     );
-  }
-
-  updateName(event) {
-    this.setState({
-      name: event.target.value
-    });
-   }
-  saluda() {
-  alert(`Hola ${this.state.name}!`);
   }
 }
 
